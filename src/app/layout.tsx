@@ -4,6 +4,7 @@ import "./globals.css";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { BackToTop } from "@/components/BackToTop";
+import { MotionProvider } from "@/components/MotionProvider";
 
 const mulish = Mulish({
   subsets: ["latin"],
@@ -28,12 +29,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${mulish.variable} ${playfair.variable} antialiased`}>
-        <div className="min-h-dvh bg-background text-foreground">
-          <SiteHeader />
-          {children}
-          <SiteFooter />
-          <BackToTop />
-        </div>
+        <MotionProvider>
+          <div className="min-h-dvh bg-background text-foreground">
+            <SiteHeader />
+            {children}
+            <SiteFooter />
+            <BackToTop />
+          </div>
+        </MotionProvider>
       </body>
     </html>
   );

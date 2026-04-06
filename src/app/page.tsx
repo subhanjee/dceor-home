@@ -1,12 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { PopularProducts } from "@/components/PopularProducts";
- 
-import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { HomeHero } from "@/components/HomeHero";
+import {
+  AnimatedGridItem,
+  AnimatedProductGrid,
+  FadeInWhenVisible,
+} from "@/components/AnimatedProductGrid";
+
+const sectionEase = [0.25, 0.1, 0.25, 1] as const;
 
 export default function Home() {
   const newArrival: Product[] = [
@@ -28,8 +34,6 @@ export default function Home() {
       <HomeHero />
 
       <div className="mx-auto max-w-6xl px-4">
-
-      {/* New Arrival */}
         <motion.section
           className="mt-16"
           initial={{ opacity: 0, y: 16 }}
@@ -42,14 +46,15 @@ export default function Home() {
             subtitle="Here is our new arraival products that you may like."
           />
 
-          <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <AnimatedProductGrid className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
             {newArrival.map((p) => (
-              <ProductCard key={p.slug} product={p} />
+              <AnimatedGridItem key={p.slug}>
+                <ProductCard product={p} />
+              </AnimatedGridItem>
             ))}
-          </div>
+          </AnimatedProductGrid>
         </motion.section>
 
-      {/* Fashion highlight block (template had 'fasion' section) */}
         <motion.section
           className="mt-16 overflow-hidden bg-[#f6f6f6]"
           initial={{ opacity: 0, y: 18 }}
@@ -58,7 +63,7 @@ export default function Home() {
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
           <div className="grid items-center gap-10 px-4 py-12 md:grid-cols-2 md:px-10">
-            <div>
+            <FadeInWhenVisible>
               <div className="font-[var(--font-display)] text-4xl tracking-wide text-[#0b1a33]">
                 Stylish home decor
                 <br />
@@ -67,128 +72,184 @@ export default function Home() {
               <p className="mt-4 text-sm tracking-[0.35em] text-[#9ca3af]">
                 Beautiful, Elegant and Modern
               </p>
-              <Link
-                href="/shop"
-                className="mt-6 inline-flex text-sm font-semibold text-[color:var(--color-brand)] underline underline-offset-4"
-              >
-                Shop Now
-              </Link>
-            </div>
-            <div className="relative min-h-64 overflow-hidden bg-white">
+              <motion.div className="mt-6" whileHover={{ x: 4 }} transition={{ type: "spring", stiffness: 400, damping: 25 }}>
+                <Link
+                  href="/shop"
+                  className="inline-flex text-sm font-semibold text-[color:var(--color-brand)] underline underline-offset-4"
+                >
+                  Shop Now
+                </Link>
+              </motion.div>
+            </FadeInWhenVisible>
+            <motion.div
+              className="relative min-h-64 overflow-hidden bg-white"
+              initial={{ opacity: 0, scale: 0.98 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.65, ease: sectionEase }}
+            >
               <div className="absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_1px_1px,rgba(17,24,39,0.10)_1px,transparent_0)] [background-size:22px_22px]" />
-            </div>
+            </motion.div>
           </div>
         </motion.section>
 
-      {/* Popular products with tabs */}
         <PopularProducts />
 
-      {/* Lookbook + Winter sale */}
-      <section className="mt-14 grid gap-6 lg:grid-cols-2">
-        <div className="relative overflow-hidden bg-[#f6f6f6] shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
-          <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(17,24,39,0.20)_1px,transparent_0)] [background-size:26px_26px]" />
-          <div className="relative p-8">
-            <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
-              LOOKBOOK 2024
-            </div>
-            <div className="mt-2 font-[var(--font-display)] text-3xl tracking-wide text-[#0b1a33]">
-              Best home decor brand in the world
-            </div>
-            <div className="mt-6">
-              <Link
-                href="/shop"
-                className="inline-flex h-11 items-center justify-center border border-black/15 bg-white/70 px-6 text-sm font-semibold text-[#0b1a33] hover:bg-white"
-              >
-                View Collection
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative overflow-hidden bg-[#f6f6f6] shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(240,86,86,0.22),transparent_60%)]" />
-          <div className="relative p-8">
-            <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
-              WINTER SALE
-            </div>
-            <div className="mt-2 font-[var(--font-display)] text-3xl tracking-wide text-[#0b1a33]">
-              UP TO 70% OFF
-            </div>
-            <div className="mt-6">
-              <Link
-                href="/shop"
-                className="inline-flex h-11 items-center justify-center bg-[color:var(--color-brand)] px-7 text-sm font-semibold text-[color:var(--color-brand-foreground)] hover:brightness-95"
-              >
-                Shop Now
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Best Seller */}
-      <section className="mt-14">
-        <SectionTitle
-          title="Best Seller"
-          subtitle="Top sale in this week and this season."
-        />
-
-        <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {bestSeller.map((p) => (
-            <ProductCard key={p.slug} product={p} />
-          ))}
-        </div>
-      </section>
-
-      {/* Latest News */}
-      <section className="mt-14 pb-10">
-        <SectionTitle
-          title="Latest News"
-          subtitle="Here is our top newses for your home decor guide."
-        />
-
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
-          {[
-            {
-              tag: "Decor",
-              title: "Modern home styling trends",
-              href: "/blog/modern-home-styling-trends",
-            },
-            {
-              tag: "Trending",
-              title: "Cozy living room ideas",
-              href: "/blog/cozy-living-room-ideas",
-            },
-            {
-              tag: "Lifestyle",
-              title: "Top 10 bedroom decor tips",
-              href: "/blog/top-10-bedroom-decor-tips",
-            },
-          ].map((post) => (
-            <article
-              key={post.href}
-              className="bg-[#f6f6f6] p-7 shadow-[0_30px_90px_rgba(0,0,0,0.35)]"
-            >
+        <section className="mt-14 grid gap-6 lg:grid-cols-2">
+          <motion.div
+            className="relative overflow-hidden bg-[#f6f6f6] shadow-[0_30px_90px_rgba(0,0,0,0.45)]"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: sectionEase }}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+          >
+            <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(17,24,39,0.20)_1px,transparent_0)] [background-size:26px_26px]" />
+            <div className="relative p-8">
               <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
-                {post.tag}
+                LOOKBOOK 2024
               </div>
-              <h3 className="mt-2 text-lg font-semibold leading-7 text-[#0b1a33]">
-                {post.title}
-              </h3>
-              <p className="mt-2 text-sm leading-6 text-[#6b7280]">
-                Etiam facisis urna dignissim dui quisque in mauris viverra.
-                Nulla placerat suscipit integer enim.
-              </p>
-              <Link
-                href={post.href}
-                className="mt-5 inline-flex text-sm font-semibold text-[color:var(--color-brand)] hover:opacity-80"
+              <div className="mt-2 font-[var(--font-display)] text-3xl tracking-wide text-[#0b1a33]">
+                Best home decor brand in the world
+              </div>
+              <div className="mt-6">
+                <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    href="/shop"
+                    className="inline-flex h-11 items-center justify-center border border-black/15 bg-white/70 px-6 text-sm font-semibold text-[#0b1a33] hover:bg-white"
+                  >
+                    View Collection
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            className="relative overflow-hidden bg-[#f6f6f6] shadow-[0_30px_90px_rgba(0,0,0,0.45)]"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.55, ease: sectionEase, delay: 0.08 }}
+            whileHover={{ y: -4, transition: { duration: 0.25 } }}
+          >
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(240,86,86,0.22),transparent_60%)]" />
+            <div className="relative p-8">
+              <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
+                WINTER SALE
+              </div>
+              <div className="mt-2 font-[var(--font-display)] text-3xl tracking-wide text-[#0b1a33]">
+                UP TO 70% OFF
+              </div>
+              <div className="mt-6">
+                <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    href="/shop"
+                    className="inline-flex h-11 items-center justify-center bg-[color:var(--color-brand)] px-7 text-sm font-semibold text-[color:var(--color-brand-foreground)] hover:brightness-95"
+                  >
+                    Shop Now
+                  </Link>
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </section>
+
+        <motion.section
+          className="mt-14"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <SectionTitle
+            title="Best Seller"
+            subtitle="Top sale in this week and this season."
+          />
+
+          <AnimatedProductGrid className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {bestSeller.map((p) => (
+              <AnimatedGridItem key={p.slug}>
+                <ProductCard product={p} />
+              </AnimatedGridItem>
+            ))}
+          </AnimatedProductGrid>
+        </motion.section>
+
+        <motion.section
+          className="mt-14 pb-10"
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <SectionTitle
+            title="Latest News"
+            subtitle="Here is our top newses for your home decor guide."
+          />
+
+          <motion.div
+            className="mt-10 grid gap-6 lg:grid-cols-3"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-60px" }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.12 } },
+            }}
+          >
+            {[
+              {
+                tag: "Decor",
+                title: "Modern home styling trends",
+                href: "/blog/modern-home-styling-trends",
+              },
+              {
+                tag: "Trending",
+                title: "Cozy living room ideas",
+                href: "/blog/cozy-living-room-ideas",
+              },
+              {
+                tag: "Lifestyle",
+                title: "Top 10 bedroom decor tips",
+                href: "/blog/top-10-bedroom-decor-tips",
+              },
+            ].map((post) => (
+              <motion.article
+                key={post.href}
+                className="bg-[#f6f6f6] p-7 shadow-[0_30px_90px_rgba(0,0,0,0.35)]"
+                variants={{
+                  hidden: { opacity: 0, y: 22 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.48, ease: sectionEase },
+                  },
+                }}
+                whileHover={{ y: -6, transition: { duration: 0.22 } }}
               >
-                Read More...
-              </Link>
-            </article>
-          ))}
-        </div>
-      </section>
+                <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
+                  {post.tag}
+                </div>
+                <h3 className="mt-2 text-lg font-semibold leading-7 text-[#0b1a33]">
+                  {post.title}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-[#6b7280]">
+                  Etiam facisis urna dignissim dui quisque in mauris viverra.
+                  Nulla placerat suscipit integer enim.
+                </p>
+                <motion.div className="mt-5 inline-block" whileHover={{ x: 3 }}>
+                  <Link
+                    href={post.href}
+                    className="inline-flex text-sm font-semibold text-[color:var(--color-brand)] hover:opacity-80"
+                  >
+                    Read More...
+                  </Link>
+                </motion.div>
+              </motion.article>
+            ))}
+          </motion.div>
+        </motion.section>
       </div>
     </main>
   );

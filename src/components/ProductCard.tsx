@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 export type Product = {
   slug: string;
@@ -20,7 +23,11 @@ function formatUSD(amount: number) {
 export function ProductCard({ product }: { product: Product }) {
   const img = product.image ?? "/placeholder-product.svg";
   return (
-    <div className="group">
+    <motion.div
+      className="group"
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 420, damping: 28 }}
+    >
       <div className="relative aspect-[4/5] overflow-hidden rounded-none bg-[#f3f3f3]">
         {product.tag ? (
           <div className="absolute left-4 top-4 z-10 rounded border border-black/10 bg-white/70 px-3 py-1 text-xs font-semibold">
@@ -28,10 +35,12 @@ export function ProductCard({ product }: { product: Product }) {
           </div>
         ) : null}
 
-        <button
+        <motion.button
           type="button"
           aria-label="Add to wishlist"
-          className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-foreground/60 shadow-sm transition hover:text-[color:var(--color-brand)]"
+          className="absolute right-4 top-4 z-10 inline-flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-foreground/60 shadow-sm hover:text-[color:var(--color-brand)]"
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.92 }}
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
             <path
@@ -41,7 +50,7 @@ export function ProductCard({ product }: { product: Product }) {
               strokeLinejoin="round"
             />
           </svg>
-        </button>
+        </motion.button>
 
         <Image
           src={img}
@@ -77,7 +86,6 @@ export function ProductCard({ product }: { product: Product }) {
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
-

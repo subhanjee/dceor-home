@@ -1,5 +1,6 @@
 import { PageShell } from "@/components/PageShell";
 import { ProductCard, type Product } from "@/components/ProductCard";
+import { AnimatedGridItem, AnimatedProductGrid } from "@/components/AnimatedProductGrid";
 
 const products: Product[] = [
   { slug: "long-sleeve-tops", title: "Long Sleeve Tops", compareAt: 85.5, price: 70.3 },
@@ -18,11 +19,13 @@ export default function ShopPage() {
       title="Shop"
       subtitle="Browse products with the same card layout and ‘Shop Now’ CTAs."
     >
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <AnimatedProductGrid className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {products.map((p) => (
-          <ProductCard key={p.slug} product={p} />
+          <AnimatedGridItem key={p.slug}>
+            <ProductCard product={p} />
+          </AnimatedGridItem>
         ))}
-      </div>
+      </AnimatedProductGrid>
     </PageShell>
   );
 }

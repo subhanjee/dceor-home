@@ -1,7 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 import { Product, ProductCard } from "@/components/ProductCard";
+import { AnimatedGridItem, AnimatedProductGrid } from "@/components/AnimatedProductGrid";
 
 const allProducts: Record<string, Product[]> = {
   "All Products": [
@@ -49,50 +51,88 @@ export function PopularProducts() {
   const products = allProducts[active] ?? allProducts["All Products"];
 
   return (
-    <section className="mt-16">
+    <motion.section
+      className="mt-16"
+      initial={{ opacity: 0, y: 22 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.55, ease: [0.25, 0.1, 0.25, 1] }}
+    >
       <div className="text-center">
-        <h2 className="font-[var(--font-display)] text-3xl tracking-wide text-[#0b1a33]">
+        <motion.h2
+          className="font-[var(--font-display)] text-3xl tracking-wide text-[#0b1a33]"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           Popular Products
-        </h2>
-        <p className="mt-2 text-sm text-[#6b7280]">
+        </motion.h2>
+        <motion.p
+          className="mt-2 text-sm text-[#6b7280]"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+        >
           Here is our new arraival products that you may like.
-        </p>
-        <div className="mx-auto mt-4 h-0.5 w-16 bg-[color:var(--color-brand)]" />
+        </motion.p>
+        <motion.div
+          className="mx-auto mt-4 h-0.5 w-16 bg-[color:var(--color-brand)]"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1], delay: 0.1 }}
+          style={{ transformOrigin: "center" }}
+        />
       </div>
 
       <div className="mt-10 flex flex-wrap items-center justify-center gap-7 text-sm">
         {tabs.map((t) => {
           const isActive = t === active;
           return (
-            <button
+            <motion.button
               key={t}
               type="button"
               onClick={() => setActive(t)}
               className={[
-                "relative pb-1 text-sm transition",
+                "relative pb-1 text-sm transition-colors",
                 isActive
                   ? "text-[color:var(--color-brand)]"
                   : "text-foreground/70 hover:text-foreground",
               ].join(" ")}
+              whileHover={{ y: -1 }}
+              whileTap={{ scale: 0.98 }}
             >
               {t}
               <span
                 className={[
-                  "absolute -bottom-0.5 left-0 h-0.5 w-full origin-left scale-x-0 bg-[color:var(--color-brand)] transition",
-                  isActive ? "scale-x-100" : "",
+                  "absolute -bottom-0.5 left-0 h-0.5 w-full origin-left bg-[color:var(--color-brand)] transition-transform duration-200",
+                  isActive ? "scale-x-100" : "scale-x-0",
                 ].join(" ")}
               />
-            </button>
+            </motion.button>
           );
         })}
       </div>
 
-      <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-        {products.map((p) => (
-          <ProductCard key={p.slug} product={p} />
-        ))}
-      </div>
-    </section>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={active}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <AnimatedProductGrid className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {products.map((p) => (
+              <AnimatedGridItem key={p.slug}>
+                <ProductCard product={p} />
+              </AnimatedGridItem>
+            ))}
+          </AnimatedProductGrid>
+        </motion.div>
+      </AnimatePresence>
+    </motion.section>
   );
 }
-
