@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Decorative wall hanging design">
+  <defs>
+    <linearGradient id="bg3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff7ed"/>
+      <stop offset="100%" stop-color="#fae8ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg3)"/>
+  <line x1="600" y1="140" x2="600" y2="220" stroke="#334155" stroke-width="8"/>
+  <circle cx="600" cy="125" r="20" fill="#334155"/>
+  <circle cx="600" cy="290" r="155" fill="none" stroke="#7c3aed" stroke-width="18"/>
+  <circle cx="600" cy="290" r="105" fill="none" stroke="#06b6d4" stroke-width="14"/>
+  <circle cx="600" cy="290" r="55" fill="#0f172a"/>
+
+  <path d="M450 390 L510 510 L570 390 Z" fill="#fb7185"/>
+  <path d="M570 390 L630 540 L690 390 Z" fill="#f97316"/>
+  <path d="M690 390 L750 510 L810 390 Z" fill="#22c55e"/>
+  <path d="M390 390 L450 500 L510 390 Z" fill="#38bdf8"/>
+
+  <line x1="450" y1="390" x2="450" y2="650" stroke="#334155" stroke-width="4"/>
+  <line x1="510" y1="390" x2="510" y2="690" stroke="#334155" stroke-width="4"/>
+  <line x1="570" y1="390" x2="570" y2="720" stroke="#334155" stroke-width="4"/>
+  <line x1="630" y1="390" x2="630" y2="720" stroke="#334155" stroke-width="4"/>
+  <line x1="690" y1="390" x2="690" y2="690" stroke="#334155" stroke-width="4"/>
+  <line x1="750" y1="390" x2="750" y2="650" stroke="#334155" stroke-width="4"/>
+
+  <text x="600" y="800" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" fill="#1e293b">Decor Wall Hanging</text>
+</svg>

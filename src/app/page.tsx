@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ProductCard, type Product } from "@/components/ProductCard";
 import { PopularProducts } from "@/components/PopularProducts";
@@ -11,6 +12,7 @@ import {
   AnimatedProductGrid,
   FadeInWhenVisible,
 } from "@/components/AnimatedProductGrid";
+import { getDecorImageByKey } from "@/lib/decorImages";
 
 const sectionEase = [0.25, 0.1, 0.25, 1] as const;
 
@@ -88,7 +90,14 @@ export default function Home() {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.65, ease: sectionEase }}
             >
-              <div className="absolute inset-0 opacity-50 [background-image:radial-gradient(circle_at_1px_1px,rgba(17,24,39,0.10)_1px,transparent_0)] [background-size:22px_22px]" />
+              <Image
+                src={getDecorImageByKey("home-highlight")}
+                alt="Stylish home decor"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+              <div className="absolute inset-0 bg-black/10" />
             </motion.div>
           </div>
         </motion.section>
@@ -104,7 +113,14 @@ export default function Home() {
             transition={{ duration: 0.55, ease: sectionEase }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
           >
-            <div className="absolute inset-0 opacity-25 [background-image:radial-gradient(circle_at_1px_1px,rgba(17,24,39,0.20)_1px,transparent_0)] [background-size:26px_26px]" />
+            <Image
+              src={getDecorImageByKey("lookbook-banner")}
+              alt="Lookbook decor setup"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-[#f6f6f6]/75" />
             <div className="relative p-8">
               <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
                 LOOKBOOK 2024
@@ -133,7 +149,14 @@ export default function Home() {
             transition={{ duration: 0.55, ease: sectionEase, delay: 0.08 }}
             whileHover={{ y: -4, transition: { duration: 0.25 } }}
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(240,86,86,0.22),transparent_60%)]" />
+            <Image
+              src={getDecorImageByKey("winter-sale-banner")}
+              alt="Winter sale decor display"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(240,86,86,0.32),rgba(255,255,255,0.72)_70%)]" />
             <div className="relative p-8">
               <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
                 WINTER SALE
@@ -203,16 +226,19 @@ export default function Home() {
                 tag: "Decor",
                 title: "Modern home styling trends",
                 href: "/blog/modern-home-styling-trends",
+                image: getDecorImageByKey("blog-modern-home-styling-trends"),
               },
               {
                 tag: "Trending",
                 title: "Cozy living room ideas",
                 href: "/blog/cozy-living-room-ideas",
+                image: getDecorImageByKey("blog-cozy-living-room-ideas"),
               },
               {
                 tag: "Lifestyle",
                 title: "Top 10 bedroom decor tips",
                 href: "/blog/top-10-bedroom-decor-tips",
+                image: getDecorImageByKey("blog-top-10-bedroom-decor-tips"),
               },
             ].map((post) => (
               <motion.article
@@ -228,6 +254,15 @@ export default function Home() {
                 }}
                 whileHover={{ y: -6, transition: { duration: 0.22 } }}
               >
+                <div className="relative mb-4 aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={post.image}
+                    alt={post.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 33vw"
+                  />
+                </div>
                 <div className="text-xs font-semibold tracking-widest text-[#6b7280]">
                   {post.tag}
                 </div>

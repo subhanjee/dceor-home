@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { getDecorImageByKey } from "@/lib/decorImages";
 
 export type Product = {
   slug: string;
@@ -21,7 +22,7 @@ function formatUSD(amount: number) {
 }
 
 export function ProductCard({ product }: { product: Product }) {
-  const img = product.image ?? "/placeholder-product.svg";
+  const img = product.image ?? getDecorImageByKey(product.slug);
   return (
     <motion.div
       className="group"

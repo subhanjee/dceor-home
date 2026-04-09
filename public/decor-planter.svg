@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Round planter stand set">
+  <defs>
+    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fdf4ff"/>
+      <stop offset="100%" stop-color="#ecfeff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg2)"/>
+  <rect x="280" y="250" width="640" height="26" rx="13" fill="#475569"/>
+  <rect x="330" y="276" width="12" height="270" fill="#475569"/>
+  <rect x="858" y="276" width="12" height="270" fill="#475569"/>
+  <rect x="602" y="276" width="12" height="330" fill="#475569"/>
+
+  <ellipse cx="380" cy="360" rx="85" ry="38" fill="#334155"/>
+  <rect x="295" y="360" width="170" height="115" fill="#64748b"/>
+  <ellipse cx="380" cy="475" rx="85" ry="30" fill="#64748b"/>
+  <path d="M320 360 C340 310 420 310 440 360" fill="#22c55e"/>
+
+  <ellipse cx="840" cy="360" rx="85" ry="38" fill="#334155"/>
+  <rect x="755" y="360" width="170" height="115" fill="#64748b"/>
+  <ellipse cx="840" cy="475" rx="85" ry="30" fill="#64748b"/>
+  <path d="M780 360 C802 304 878 304 900 360" fill="#16a34a"/>
+
+  <ellipse cx="608" cy="510" rx="102" ry="42" fill="#334155"/>
+  <rect x="506" y="510" width="204" height="130" fill="#64748b"/>
+  <ellipse cx="608" cy="640" rx="102" ry="34" fill="#64748b"/>
+  <path d="M528 510 C555 435 661 435 688 510" fill="#15803d"/>
+
+  <text x="600" y="770" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" fill="#1e293b">Home Planter Stand</text>
+</svg>

@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PageShell } from "@/components/PageShell";
+import { getDecorImageByKey, getDecorImagePool } from "@/lib/decorImages";
 
 export default async function ProductPage({
   params,
@@ -7,6 +9,9 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const productName = decodeURIComponent(slug).replaceAll("-", " ");
+  const heroImage = getDecorImageByKey(slug);
+  const gallery = getDecorImagePool().slice(0, 4);
 
   return (
     <PageShell
@@ -14,8 +19,33 @@ export default async function ProductPage({
       subtitle="This is a placeholder product detail page. Replace with real data fetching later."
     >
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="aspect-[4/5] overflow-hidden rounded-3xl border bg-[color:var(--color-surface)]">
-          <div className="h-full w-full opacity-50 [background-image:radial-gradient(circle_at_1px_1px,rgba(17,24,39,0.18)_1px,transparent_0)] [background-size:22px_22px]" />
+        <div className="space-y-3">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border bg-[color:var(--color-surface)]">
+            <Image
+              src={heroImage}
+              alt={productName}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+            />
+          </div>
+          <div className="grid grid-cols-4 gap-3">
+            {gallery.map((img) => (
+              <div
+                key={img}
+                className="relative aspect-square overflow-hidden rounded-xl border bg-white"
+              >
+                <Image
+                  src={img}
+                  alt="Decor preview"
+                  fill
+                  className="object-cover"
+                  sizes="140px"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         <div>
@@ -23,7 +53,7 @@ export default async function ProductPage({
             DECOR HAVEN HOME
           </div>
           <h2 className="mt-2 font-[var(--font-display)] text-3xl tracking-wide">
-            {decodeURIComponent(slug).replaceAll("-", " ")}
+            {productName}
           </h2>
           <p className="mt-3 text-sm leading-6 text-[color:var(--color-muted)]">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quis

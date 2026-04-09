@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-label="Decorative cycle wall accent">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <circle cx="380" cy="580" r="155" fill="none" stroke="#334155" stroke-width="18"/>
+  <circle cx="780" cy="580" r="155" fill="none" stroke="#334155" stroke-width="18"/>
+  <path d="M380 580 L530 430 L670 430 L780 580" fill="none" stroke="#0f172a" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M530 430 L450 325" fill="none" stroke="#0f172a" stroke-width="18" stroke-linecap="round"/>
+  <rect x="435" y="292" width="80" height="28" rx="14" fill="#f97316"/>
+  <path d="M670 430 L700 355 L765 355" fill="none" stroke="#0f172a" stroke-width="16" stroke-linecap="round"/>
+  <path d="M585 468 L646 468" stroke="#0f172a" stroke-width="14" stroke-linecap="round"/>
+  <circle cx="530" cy="430" r="20" fill="#f97316"/>
+  <text x="600" y="770" text-anchor="middle" font-family="Arial, sans-serif" font-size="52" fill="#1e293b">Decorative Cycle Accent</text>
+</svg>
